@@ -22,7 +22,7 @@ data = OrderedDict()
 
 
 # populates n and data
-# by identifying the categories calling oneCategory
+# by identifying the categories and calling oneCategory
 def categories():
 	page = urllib.request.urlopen(index).read()
 	soup = BeautifulSoup(page, 'html.parser')
@@ -76,21 +76,27 @@ def writeArticles():
 	f = open(filename, 'w')
 
 	# write number of articles
-	pages = 'Total Articles: ' + str(n)
+	pages = 'Total Articles:' + str(n)
 	f.write(pages)
-	f.write('')
+	f.write('\n' + '\n')
 
 	# write articles
 	count = 1
 	for key, value in data.items():
 		print('Currently writing ' + key + 'category')
-		f.write(key)
+		f.write('CATEGORY:' + key)
+		f.write('\n')
 		for article in value:
+			print(count)
+			f.write('<s>')
+			f.write('\n')
 			url = index + article
 			info = oneArticle(url)
-			f.write(str(count) + ': ' + url)
-			f.write(info[0])
+			f.write(str(count) + '*' + url + '*' + info[0])
+			f.write('\n')
 			f.write(info[1])
+			f.write('</s>')
+			f.write('\n')
 			count += 1
 	f.close
 
