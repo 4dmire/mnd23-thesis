@@ -3,8 +3,7 @@ import collections
 from collections import defaultdict
 
 
-
-GRAM = 5
+GRAM = 4
 LUNYU_FILE = 'lunyu_simp.txt'
 LAOZI_FILE = 'laozi_simp.txt'
 XI_FILE = 'xi_mar_26.txt'
@@ -75,7 +74,7 @@ def lunyu_preprocess(line):
 	right, left = l.split('（', 1)
 	right = right[::-1]
 	left = left[::-1]
-	number = float(right.split('）')[0])
+	number = right.split('）')[0]
 
 	# get text stripped of punctuation
 	text = left.split('.')[1].strip()
@@ -239,7 +238,6 @@ def print_results(w, corpora):
 
 		if used == True:
 			result += str(v) + '\n\n'
-			
 		q += (str(v.number) + '\t\t' + v.str_refs() + '\n')
 
 	print('Using a {}-gram for the {}:'.format(GRAM, w.name))
@@ -252,7 +250,7 @@ def print_results(w, corpora):
 	print('')
 	print(q)	
 	print('')
-	print(result[:-2])
+	#print(result[:-2])
 
 
 Lunyu = Work('Lunyu', LUNYU_FILE)
@@ -263,12 +261,11 @@ edict_process(Lunyu, HAN_FILE)
 edict_process(Lunyu, TANG_FILE)
 print_results(Lunyu, [True, True, True])
 
-
 '''Laozi = Work('Laozi', LAOZI_FILE)
 get_grams(Laozi, laozi_preprocess)
 
 xi_process(Laozi)
 edict_process(Laozi, HAN_FILE)
 edict_process(Laozi, TANG_FILE)
-print_results(Laozi, [True, False, False])'''
+print_results(Laozi, [True, True, True])'''
 
